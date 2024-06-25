@@ -135,6 +135,7 @@ options = st.multiselect(
     ['AI',
  'Citation',
  'API_endpoints',
+ 'Recommendation',
  'Authentication',
  'Dashboard',
  'Internationalization',
