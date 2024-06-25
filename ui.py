@@ -39,8 +39,8 @@ def get_Ers_doc_based_on_topic(topic_list_string):
         }}
         }}
     }}"""
-        apiKey = "eyJhbGciOiJIUzI1NiJ9.eyJ0aWQiOjMyMDMzNzcxOCwiYWFpIjoxMSwidWlkIjo1NDYyNDExNywiaWFkIjoiMjAyNC0wMi0xMlQyMDozNzowOS43OTFaIiwicGVyIjoibWU6d3JpdGUiLCJhY3RpZCI6MTAxMDk5NDMsInJnbiI6InVzZTEifQ.hrUeOuWjXBEjGnm41MdvMoJtkcJCUuqGA_TfA_xypKQ"
-        API_KEY = apiKey
+       
+        API_KEY = st.secrets['apiKey']
         client = GraphQLClient('https://api.monday.com/v2')
         client.inject_token(API_KEY)
         query = f"""{{
@@ -85,8 +85,8 @@ def creat_rag(doc):
     if er_doc is None:
         raise ValueError("er_doc is None. Please provide valid documents.")
     if doc!='':
-        openaikey='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'
-        os.environ["OPENAI_API_KEY"] = openaikey
+
+        os.environ["OPENAI_API_KEY"] = st.secrets['openaikey']
         model = ChatOpenAI(model="gpt-4")
         embeddings = HuggingFaceEmbeddings()
         faiss_index = FAISS.from_documents(doc, embeddings)
