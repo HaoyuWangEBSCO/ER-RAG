@@ -59,7 +59,7 @@ def get_Ers_doc_based_on_topic(topic_list_string):
                        page_content=f"{item['name']}\n" + "\n".join(f"{output_dict.get(cv['id'], cv['id'])}: {cv['text'] or cv['value']}" for cv in item['column_values'] if cv['id'] in columns_to_keep),
                        metadata={cv['id']: cv['text'] for cv in item['column_values'] if cv['id'] in columns_to_keep})for item in data['data']['boards'][0]['items_page']['items']]
       elif "Filters" in topic_list_string:
-         API_KEY = st.secrets['apiKey']
+            API_KEY = st.secrets['apiKey']
             query=  """ {
                          boards (ids: 6633501571){
                            items_page (limit: 500) {
