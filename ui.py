@@ -64,7 +64,7 @@ def get_Ers_doc_based_on_topic(topic_list_string):
                 )
                 
                 for item in data['data']['boards'][0]['items_page']['items']]
-        else:               
+        else: 
                 query = f"""{{
             items_page_by_column_values (limit: 500, board_id: 5893852581, columns: {{column_id:"parent_topic9", column_values:[{topic_list_string}]}})
                 {{ items{{
