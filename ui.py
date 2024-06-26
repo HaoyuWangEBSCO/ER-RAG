@@ -27,6 +27,7 @@ from graphqlclient import GraphQLClient
 def get_Ers_doc_based_on_topic(topic_list_string):
     if topic_list_string!="":
         if "Locate" in topic_list_string:
+            st.write('Locate ER')
             query=  """ {
                       boards (ids: 6800094599){
                         items_page (limit: 500) {
@@ -61,8 +62,7 @@ def get_Ers_doc_based_on_topic(topic_list_string):
                     metadata={cv['id']: cv['text'] for cv in item['column_values'] if cv['id'] in columns_to_keep}
                 )
                 
-                for item in data['data']['boards'][0]['items_page']['items']
-            ]
+                for item in data['data']['boards'][0]['items_page']['items']]
     
         else:                
             query = f"""{{
