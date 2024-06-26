@@ -27,20 +27,20 @@ from graphqlclient import GraphQLClient
 def get_Ers_doc_based_on_topic(topic_list_string):
     if topic_list_string!="":
         if "Locate" in topic_list_string:
-        query=   """{ boards (ids: 6800094599){
-                    items_page (limit: 500 {
-                      items {
-                        id 
-                        name
-                      column_values{
+            query=   """{ boards (ids: 6800094599){
+                        items_page (limit: 500 {
+                          items {
                             id 
-                            text
-                            value
-                        } 
+                            name
+                          column_values{
+                                id 
+                                text
+                                value
+                            } 
+                          }
+                        }
                       }
-                    }
-                  }
-                }"""
+                    }"""
         else:                
             query = f"""{{
         items_page_by_column_values (limit: 500, board_id: 5893852581, columns: {{column_id:"parent_topic9", column_values:[{topic_list_string}]}})
