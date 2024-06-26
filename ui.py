@@ -27,7 +27,7 @@ from graphqlclient import GraphQLClient
 def get_Ers_doc_based_on_topic(topic_list_string):
     st.write(topic_list_string)
     if topic_list_string!="":
-       if "Locate" in topic_list_string :
+        if "Locate" in topic_list_string :
             st.write('Locate ER')
             query=  """ {
                       boards (ids: 6800094599){
