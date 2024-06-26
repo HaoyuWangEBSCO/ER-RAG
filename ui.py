@@ -108,13 +108,13 @@ def creat_rag(doc):
         model = ChatOpenAI(model="gpt-4")
         embeddings = HuggingFaceEmbeddings()
         faiss_index = FAISS.from_documents(doc, embeddings)
-        retriever = faiss_index.as_retriever()
+        retriever = faiss_index.as_retriever(search_kwargs={"k":7)
         system_prompt = (
             "You are an assistant for question-answering tasks. Be sure to present the ER Number as you reference them "
-            "Use the following pieces of retrieved context to answer. Also, looks into the metadata as well as the page content"
+            "Use the following pieces of retrieved context to answer. Also, let me know how many context do you have"
             "the question. If you don't know the answer, say that you "
             "don't know. Use three sentences maximum and keep the "
-            "answer concise."
+            "answer with a bit more detail."
             "\n\n"
             "{context}"
         )
