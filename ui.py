@@ -96,7 +96,7 @@ def get_Ers_doc_based_on_topic(topic_list_string):
                 )
                 
                 for item in data['data']['boards'][0]['items_page']['items']]
-        else: 
+      else: 
                API_KEY = st.secrets['apiKey']
                query = f"""{{
                items_page_by_column_values (limit: 500, board_id: {board_id}, columns: {{column_id:"parent_topic9", column_values:[{topic_list_string}]}})
