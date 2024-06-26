@@ -25,11 +25,42 @@ import time
 from graphqlclient import GraphQLClient
 
 def get_Ers_doc_based_on_topic(topic_list_string):
-   
-    if topic_list_string!="":
-        if "Locate" in topic_list_string :
+   if topic_list_string!="":
+      if "Search" in topic_list_string|"Filters" in topic_list_string:
             API_KEY = st.secrets['apiKey']
-            
+            query=  """ {
+                         boards (ids: 6633501571){
+                           items_page (limit: 500) {
+                       
+                             items {
+                               id 
+                               name
+                               column_values {
+                                    id 
+                                    text
+                                    value
+                               }
+                             }
+                           }
+                         }
+                       }"""
+            client = GraphQLClient('https://api.monday.com/v2')
+            client.inject_token(API_KEY)
+            col="{ boards(ids: 6633501571) {columns { id title}}}"# Execute the query
+            data_response = client.execute(query)
+            colname=client.execute(col)
+            data=json.loads(data_response)
+            col_names=json.loads(colname)
+            col_dict=col_names['data']['boards'][0]['columns']
+            output_dict = {item['id']: item['title'] for item in col_dict}
+            columns_to_keep = ['status', 'bpm96', 'dropdown4', 'dropdown3','priority3','numbers13','description__1']
+            documents = [
+                   Document(
+                       page_content=f"{item['name']}\n" + "\n".join(f"{output_dict.get(cv['id'], cv['id'])}: {cv['text'] or cv['value']}" for cv in item['column_values'] if cv['id'] in columns_to_keep),
+                       metadata={cv['id']: cv['text'] for cv in item['column_values'] if cv['id'] in columns_to_keep})for item in data['data']['boards'][0]['items_page']['items']]
+      elif "Locate" in topic_list_string :
+            API_KEY = st.secrets['apiKey']
+               
             query=  """ {
                       boards (ids: 6800094599){
                         items_page (limit: 500) {
@@ -65,37 +96,37 @@ def get_Ers_doc_based_on_topic(topic_list_string):
                 )
                 
                 for item in data['data']['boards'][0]['items_page']['items']]
-        else: 
-            API_KEY = st.secrets['apiKey']
-            query = f"""{{
-            items_page_by_column_values (limit: 500, board_id: 5893852581, columns: {{column_id:"parent_topic9", column_values:[{topic_list_string}]}})
-                {{ items{{
-                id
-                name
-                column_values{{
-                    id 
-                    text
-                    value
-                }}
-                }}
-                }}
-            }}"""
-            client = GraphQLClient('https://api.monday.com/v2')
-            client.inject_token(API_KEY)
-            col="{ boards(ids: 5893852581) {columns { id title}}}"
-            # Execute the query
-            data_response = client.execute(query)
-            colname=client.execute(col)
-            data=json.loads(data_response)
-            col_names=json.loads(colname)
-            col_dict=col_names['data']['boards'][0]['columns']
-            output_dict = {item['id']: item['title'] for item in col_dict}
-        
-            columns_to_keep = ['status', 'bpm96', 'dropdown4', 'dropdown3','priority3','numbers13','description__1']
-            documents = [
-                Document(
-                    page_content=f"{item['name']}\n" + "\n".join(f"{output_dict.get(cv['id'], cv['id'])}: {cv['text'] or cv['value']}" for cv in item['column_values'] if cv['id'] in columns_to_keep),
-                    metadata={cv['id']: cv['text'] for cv in item['column_values'] if cv['id'] in columns_to_keep}) for item in data['data']['items_page_by_column_values']['items']]
+        elif: 
+              API_KEY = st.secrets['apiKey']
+               query = f"""{{
+               items_page_by_column_values (limit: 500, board_id: {board_id}, columns: {{column_id:"parent_topic9", column_values:[{topic_list_string}]}})
+                   {{ items{{
+                   id
+                   name
+                   column_values{{
+                       id 
+                       text
+                       value
+                   }}
+                   }}
+                   }}
+               }}"""
+               client = GraphQLClient('https://api.monday.com/v2')
+               client.inject_token(API_KEY)
+               col="{ boards(ids: 5893852581) {columns { id title}}}"
+               # Execute the query
+               data_response = client.execute(query)
+               colname=client.execute(col)
+               data=json.loads(data_response)
+               col_names=json.loads(colname)
+               col_dict=col_names['data']['boards'][0]['columns']
+               output_dict = {item['id']: item['title'] for item in col_dict}
+           
+               columns_to_keep = ['status', 'bpm96', 'dropdown4', 'dropdown3','priority3','numbers13','description__1']
+               documents = [
+                   Document(
+                       page_content=f"{item['name']}\n" + "\n".join(f"{output_dict.get(cv['id'], cv['id'])}: {cv['text'] or cv['value']}" for cv in item['column_values'] if cv['id'] in columns_to_keep),
+                       metadata={cv['id']: cv['text'] for cv in item['column_values'] if cv['id'] in columns_to_keep}) for item in data['data']['items_page_by_column_values']['items']]
     else:
         documents=''
         st.write('Please select your topics in step 1')
