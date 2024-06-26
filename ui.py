@@ -25,11 +25,11 @@ import time
 from graphqlclient import GraphQLClient
 
 def get_Ers_doc_based_on_topic(topic_list_string):
-    st.write(topic_list_string)
+   
     if topic_list_string!="":
         if "Locate" in topic_list_string :
             API_KEY = st.secrets['apiKey']
-            st.write('Locate ER')
+            
             query=  """ {
                       boards (ids: 6800094599){
                         items_page (limit: 500) {
@@ -211,11 +211,6 @@ if 'getrag' not in st.session_state:
 
 if st.session_state['option'] != "":
     with st.spinner('Downloading ERs from Monday.Com'):
-        st.write(st.session_state.option)
-        if "Locate" in st.session_state.option :
-            st.write("Locate ER")
-        else:
-            st.write('otherER')
         er_doc=get_er_doc(st.session_state.option)
 
     
