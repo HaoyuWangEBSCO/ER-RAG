@@ -28,6 +28,7 @@ def get_Ers_doc_based_on_topic(topic_list_string):
     st.write(topic_list_string)
     if topic_list_string!="":
         if "Locate" in topic_list_string :
+            API_KEY = st.secrets['apiKey']
             st.write('Locate ER')
             query=  """ {
                       boards (ids: 6800094599){
@@ -45,7 +46,7 @@ def get_Ers_doc_based_on_topic(topic_list_string):
                         }
                       }
                     }"""
-            API_KEY = st.secrets['apiKey']
+            
             client = GraphQLClient('https://api.monday.com/v2')
             client.inject_token(API_KEY)
             col="{ boards(ids: 6800094599) {columns { id title}}}"
