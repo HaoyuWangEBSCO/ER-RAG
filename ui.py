@@ -61,7 +61,7 @@ def get_Ers_doc_based_on_topic(topic_list_string):
                     metadata={cv['id']: cv['text'] for cv in item['column_values'] if cv['id'] in columns_to_keep}
                 )
                 
-                for item in data['data']['items_page']['items']
+                for item in data['data']['boards'][0]['items_page']['items']
             ]
     
         else:                
