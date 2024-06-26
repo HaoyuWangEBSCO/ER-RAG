@@ -52,7 +52,7 @@ def get_Ers_doc_based_on_topic(topic_list_string):
             colname=client.execute(col)
             data=json.loads(data_response)
             col_names=json.loads(colname)
-            col_dict=col_names['data']['boards'][0]['columns']
+            col_dict=col_names['data']['boards'][0]
             output_dict = {item['id']: item['title'] for item in col_dict}
             columns_to_keep = ['status', 'bpm96', 'dropdown4', 'dropdown3','priority3','numbers13','description__1']
             documents = [
