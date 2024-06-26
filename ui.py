@@ -95,11 +95,7 @@ def get_Ers_doc_based_on_topic(topic_list_string):
         documents = [
             Document(
                 page_content=f"{item['name']}\n" + "\n".join(f"{output_dict.get(cv['id'], cv['id'])}: {cv['text'] or cv['value']}" for cv in item['column_values'] if cv['id'] in columns_to_keep),
-                metadata={cv['id']: cv['text'] for cv in item['column_values'] if cv['id'] in columns_to_keep}
-            )
-            
-            for item in data['data']['items_page_by_column_values']['items']
-        ]
+                metadata={cv['id']: cv['text'] for cv in item['column_values'] if cv['id'] in columns_to_keep}) for item in data['data']['items_page_by_column_values']['items']]
     else:
         documents=''
         st.write('Please select your topics in step 1')
