@@ -46,13 +46,13 @@ def get_Ers_doc_based_on_topic(topic_list_string):
             API_KEY = st.secrets['apiKey']
             client = GraphQLClient('https://api.monday.com/v2')
             client.inject_token(API_KEY)
-            col="{ boards(ids: 5893852581) {columns { id title}}}"
+            col="{ boards(ids: 6800094599) {columns { id title}}}"
             # Execute the query
             data_response = client.execute(query)
             colname=client.execute(col)
             data=json.loads(data_response)
             col_names=json.loads(colname)
-            col_dict=col_names['data']['boards'][0]
+            col_dict=col_names['data']['boards'][0]['columns']
             output_dict = {item['id']: item['title'] for item in col_dict}
             columns_to_keep = ['status', 'bpm96', 'dropdown4', 'dropdown3','priority3','numbers13','description__1']
             documents = [
