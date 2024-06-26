@@ -148,9 +148,7 @@ st.write('Step 1: Select the topics you are interested')
 if 'option' not in st.session_state:
     st.session_state['option'] = ""
 options=0
-options = st.multiselect(
-    "What topics do you want to ask about, up to 3",
-    ['AI',
+optionlist=['AI',
  'Citation',
  'API_endpoints',
  'Recommendation',
@@ -167,9 +165,16 @@ options = st.multiselect(
  'Filters',
  'Export',
  'Folder',
- 'UX','Locate'],max_selections=3)
+ 'UX','Locate']
+
+optionlist.sort()
+
+options = st.multiselect(
+    "What topics do you want to ask about, up to 3",
+    optionlist,max_selections=3)
 # Initialize session state if not already set
 formatted_topic_list=0
+
 if options!=0:
     formatted_topic_list = ', '.join(f'"{item}"' for item in options)
 
