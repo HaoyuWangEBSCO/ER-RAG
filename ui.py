@@ -211,6 +211,7 @@ if 'getrag' not in st.session_state:
 
 if st.session_state['option'] != "":
     with st.spinner('Downloading ERs from Monday.Com'):
+        st.write(st.session_state['option'])
         er_doc=get_er_doc(st.session_state.option)
 
     
