@@ -66,7 +66,8 @@ def get_Ers_doc_based_on_topic(topic_list_string):
                 
                 for item in data['data']['boards'][0]['items_page']['items']]
         else: 
-                query = f"""{{
+            API_KEY = st.secrets['apiKey']
+            query = f"""{{
             items_page_by_column_values (limit: 500, board_id: 5893852581, columns: {{column_id:"parent_topic9", column_values:[{topic_list_string}]}})
                 {{ items{{
                 id
@@ -79,8 +80,6 @@ def get_Ers_doc_based_on_topic(topic_list_string):
                 }}
                 }}
             }}"""
-           
-            API_KEY = st.secrets['apiKey']
             client = GraphQLClient('https://api.monday.com/v2')
             client.inject_token(API_KEY)
             col="{ boards(ids: 5893852581) {columns { id title}}}"
