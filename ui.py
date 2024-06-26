@@ -26,19 +26,35 @@ from graphqlclient import GraphQLClient
 
 def get_Ers_doc_based_on_topic(topic_list_string):
     if topic_list_string!="":
-        query = f"""{{
-    items_page_by_column_values (limit: 500, board_id: 5893852581, columns: {{column_id:"parent_topic9", column_values:[{topic_list_string}]}})
-        {{ items{{
-        id
-        name
-        column_values{{
-            id 
-            text
-            value
-        }}
-        }}
-        }}
-    }}"""
+        if "Locate" in topic_list_string:
+        query=   """{ boards (ids: 6800094599){
+                    items_page (limit: 500 {
+                      items {
+                        id 
+                        name
+                      column_values{
+                            id 
+                            text
+                            value
+                        } 
+                      }
+                    }
+                  }
+                }"""
+        else:                
+            query = f"""{{
+        items_page_by_column_values (limit: 500, board_id: 5893852581, columns: {{column_id:"parent_topic9", column_values:[{topic_list_string}]}})
+            {{ items{{
+            id
+            name
+            column_values{{
+                id 
+                text
+                value
+            }}
+            }}
+            }}
+        }}"""
        
         API_KEY = st.secrets['apiKey']
         client = GraphQLClient('https://api.monday.com/v2')
@@ -149,7 +165,7 @@ options = st.multiselect(
  'Filters',
  'Export',
  'Folder',
- 'UX'],max_selections=3)
+ 'UX','Locate'],max_selections=3)
 # Initialize session state if not already set
 formatted_topic_list=0
 if options!=0:
