@@ -25,7 +25,7 @@ import time
 from graphqlclient import GraphQLClient
 
 def get_Ers_doc_based_on_topic(topic_list_string):
-   st.write(topic_list_string)
+
    if topic_list_string!="":
       if "Search" in topic_list_string:
             API_KEY = st.secrets['apiKey']
@@ -156,7 +156,7 @@ def get_Ers_doc_based_on_topic(topic_list_string):
                col_names=json.loads(colname)
                col_dict=col_names['data']['boards'][0]['columns']
                output_dict = {item['id']: item['title'] for item in col_dict}
-               st.write(data)
+            
                columns_to_keep = ['status', 'bpm96', 'dropdown4', 'dropdown3','priority3','numbers13','description__1']
                documents = [
                    Document(
