@@ -153,12 +153,14 @@ def get_Ers_doc_based_on_topic(topic_list_string):
                col_names=json.loads(colname)
                col_dict=col_names['data']['boards'][0]['columns']
                output_dict = {item['id']: item['title'] for item in col_dict}
-           
+               st.write(data)
                columns_to_keep = ['status', 'bpm96', 'dropdown4', 'dropdown3','priority3','numbers13','description__1']
                documents = [
                    Document(
                        page_content=f"{item['name']}\n" + "\n".join(f"{output_dict.get(cv['id'], cv['id'])}: {cv['text'] or cv['value']}" for cv in item['column_values'] if cv['id'] in columns_to_keep),
-                       metadata={cv['id']: cv['text'] for cv in item['column_values'] if cv['id'] in columns_to_keep}) for item in data['data']['items_page_by_column_values']['items']]
+                       metadata={cv['id']: cv['text'] for cv in item['column_values'] if cv['id'] in columns_to_keep}
+                   ) 
+                  for item in data["data"]['items_page_by_column_values']['items']]
    else:
         documents=''
         st.write('Please select your topics in step 1')
