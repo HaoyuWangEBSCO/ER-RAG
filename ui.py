@@ -219,7 +219,7 @@ st.write('Step 1: Select the topics you are interested')
 if 'option' not in st.session_state:
     st.session_state['option'] = ""
 options=0
-optionlist=['AI',
+optionlist=['AI', 
  'Citation',
  'API_endpoints',
  'Recommendation',
