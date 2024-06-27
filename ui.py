@@ -25,6 +25,7 @@ import time
 from graphqlclient import GraphQLClient
 
 def get_Ers_doc_based_on_topic(topic_list_string):
+   st.write(topic_list_string)
    if topic_list_string!="":
       if "Search" in topic_list_string:
             API_KEY = st.secrets['apiKey']
@@ -247,7 +248,7 @@ if options!=0:
     formatted_topic_list = ', '.join(f'"{item}"' for item in options)
 
 if formatted_topic_list:  # Update only if there's a new selection
-    st.session_state.option = f'"{formatted_topic_list}"'
+    st.session_state.option = formatted_topic_list
     
 
 
