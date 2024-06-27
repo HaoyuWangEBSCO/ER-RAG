@@ -30,7 +30,7 @@ def get_Ers_doc_based_on_topic(topic_list_string):
       if "Search" in topic_list_string:
             API_KEY = st.secrets['apiKey']
             query = f"""{{
-            items_page_by_column_values (limit: 500, board_id: 6633501571, columns: {{column_id:"parent_topic9", column_values:[{topic_list_string}]}})
+            items_page_by_column_values (limit: 500, board_id: 6633501571, columns: {{column_id:"parent_topic__1", column_values:[{topic_list_string}]}})
                 {{ items{{
                 id
                 name
@@ -63,7 +63,7 @@ def get_Ers_doc_based_on_topic(topic_list_string):
       elif "Filters" in topic_list_string:
             API_KEY = st.secrets['apiKey']
             query = f"""{{
-            items_page_by_column_values (limit: 500, board_id: 6633501571, columns: {{column_id:"parent_topic9", column_values:[{topic_list_string}]}})
+            items_page_by_column_values (limit: 500, board_id: 6633501571, columns: {{column_id:"parent_topic__1", column_values:[{topic_list_string}]}})
                 {{ items{{
                 id
                 name
