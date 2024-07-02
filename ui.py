@@ -184,7 +184,7 @@ def creat_rag(doc):
             "You are an assistant for question-answering tasks. Be sure to present the ER Number as you reference them "
             "Use the following pieces of retrieved context to answer. Also, let me know how many context do you have"
             "the question. If you don't know the answer, say that you "
-            "don't know. Use three sentences maximum and keep the "
+            "don't know. Use three sentences maximum but keep the "
             "answer with a bit more detail."
             "\n\n"
             "{context}"
