@@ -236,7 +236,7 @@ optionlist=['AI',
  'Filters',
  'Export',
  'Folder',
- 'UX','Locate']
+ 'UX','Locate',"Linked-data"]
 
 optionlist.sort()
 
