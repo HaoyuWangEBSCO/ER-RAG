@@ -288,10 +288,7 @@ if st.session_state['option'] != "":
         
 
 
-    with st.sidebar:
-        st.write('The ERs that AI is going to read')
-        st.write(st.session_state.got_er_doc)
-        
+   
 
 
 # Initialize session state if not already set
@@ -317,13 +314,16 @@ if st.session_state['got_er_doc']!=False:
 # Initialize session state if not already set
 
 def response_generator(question):
-    response=st.session_state.getrag.invoke({"input": question})['answer']
-    for word in response.split():
+    
+    for word in question.split():
         yield word + " "
         time.sleep(0.05)
 
+
+
+
 if st.session_state.getrag !=False:
-    st.write("the AI is ready,please ask your question know:")
+    st.write("Your AI assistance is ready, please ask your question know:")
 
     # Initialize chat history
     if "messages" not in st.session_state:
@@ -341,9 +341,19 @@ if st.session_state.getrag !=False:
         # Display user message in chat message container
         with st.chat_message("user"):
             st.markdown(prompt)
+  
+  
+     
+        
+    output=st.session_state.getrag.invoke({"input": prompt})  
+    raganswer=output['answer']
+    context=output['context']
+    with st.sidebar:
+        st.write('These are the ERs that AI is going to reference')
+        st.write(context)
+    # Display assistant response in chat message container
+    with st.chat_message("assistant"):
+        response = st.write_stream(response_generator(raganswer))
+    # Add assistant response to chat history
+    st.session_state.messages.append({"role": "assistant", "content": response})
 
-        # Display assistant response in chat message container
-        with st.chat_message("assistant"):
-            response = st.write_stream(response_generator(prompt))
-        # Add assistant response to chat history
-        st.session_state.messages.append({"role": "assistant", "content": response})
