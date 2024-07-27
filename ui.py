@@ -1,6 +1,6 @@
 import streamlit as st
 from streamlit.logger import get_logger
-import pandas as pd
+
 import getpass
 import os
 from langchain_openai import ChatOpenAI
@@ -17,7 +17,7 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_huggingface import HuggingFaceEmbeddings
 import requests
 import json
-import pandas as pd
+
 from monday import MondayClient
 import re
 import time
